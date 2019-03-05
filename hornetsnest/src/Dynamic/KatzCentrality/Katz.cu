@@ -68,31 +68,6 @@ KatzCentralityDynamic::KatzCentralityDynamic(HornetGraph& hornet,
               << std::endl;
 }
 
-KatzCentralityDynamic::KatzCentralityDynamic(HornetGraph& hornet,
-                                             int max_iteration, int K,
-                                             degree_t max_degree) :
-                                   StaticAlgorithm(hornet),
-                                   load_balancing(hornet),
-                                   inverted_graph(inverted_graph),
-                                   is_directed(true),
-                                   kc_static(inverted_graph, max_iteration, K,
-                                             max_degree, true) {
-
-    hd_katzdata().active_queue.initialize(hornet);
-
-    gpu::allocate(hd_katzdata().new_paths_curr, hornet.nV());
-    gpu::allocate(hd_katzdata().new_paths_prev, hornet.nV());
-    gpu::allocate(hd_katzdata().active,         hornet.nV());
-
-    hd_katzdata = kc_static.katz_data();
-
-    std::cout << "Oded remember to take care of memory de-allocation\n"
-              << "Oded need to figure out correct API for dynamic graph"
-              << "algorithms\n"
-              << "Dynamic katz centrality algorithm needs to get both the"
-              << "original graph and the inverted graph for directed graphs"
-              << std::endl;
-}
 
 KatzCentralityDynamic::~KatzCentralityDynamic() {
     release();

@@ -17,11 +17,10 @@ public:
     void run()      override;
     void release()  override;
     bool validate() override { return true; }
-    
-    ctr_t* d_centralities { nullptr };
 
 private:
-    double norm_factor { 0.0 };
+    ctr_t* d_centralities { nullptr };
+    double const norm_factor;
 };
 
 } // namespace hornets_nest
